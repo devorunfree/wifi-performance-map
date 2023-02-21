@@ -14,7 +14,7 @@ async function calculateDownloadSpeed() {
         let endTime = Date.now();
         let contentLength = xhr.getResponseHeader("Content-Length");
         let calc = (contentLength * 8) / ((endTime - startTime) * 0.001);
-        console.log("file size: %d", contentLength)
+        // console.log("file size: %d", contentLength)
         resolve(calc);
       };
       xhr.onerror = function(err) {

@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const route = require("./route.js");
 const path = require("path");
+const axios = require('axios');
 const multer = require("multer");
 const upload = multer({ limit: '10MB' }); // set file size limit to 10 MB
 
@@ -26,6 +27,16 @@ app.use("/data", route);
 app.get('/ping', (req, res) => {
     res.send(Date.now().toString());
 });
+
+// app.get('/geolocation', async (req, res) => {
+//     try {
+//       const response = await axios.get('https://geolocation-db.com/json/');
+//       res.json(response.data);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Server error');
+//     }
+//   });
 
 // This route will handle file uploads
 app.post("/upload", upload.single("file"), (req, res) => {

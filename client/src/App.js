@@ -32,8 +32,7 @@ import pingGood from "./icons/ping_good.svg";
 import userIcon from "./icons/user.svg";
 
 
-var currentTime = new Date(Date.now());
-var time = currentTime.toLocaleString();
+
 
 
 export default function App() {
@@ -47,6 +46,9 @@ export default function App() {
   let user_up = uploadSpeed;
   let user_down = downloadSpeed;
   let user_ping = ping;
+
+  var currentTime = new Date(Date.now());
+  var time = currentTime.toLocaleString();
 
   const [viewport, setViewport] = useState({
     latitude: 28.063570,
@@ -72,7 +74,7 @@ export default function App() {
         console.log(error);
       });
   }
-  
+
 
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping) => {
     if (downloadSpeed && locationLoaded) {
@@ -108,39 +110,74 @@ export default function App() {
         setLng(position.coords.longitude);
         setLocationLoaded(true);
         setTimeout(getData, 1000);
-
+  
       }, () => {
         setStatus('Unable to retrieve your location');
-      });
-      
+      });    
     }
   };
-
+  
+  function onFIT(lat, lng) {
+  
+      const northWest = { latitude: 28.069694, longitude: -80.625449 };
+      const northEast = { latitude: 28.069635, longitude: -80.621458 };
+      const southEast = { latitude: 28.057966, longitude: -80.621641 };
+      const southWest = { latitude: 28.057947, longitude: -80.625564 };
+  
+      const northWestTestA = { latitude: 27.627688, longitude: -80.487553 };
+      const northEastTestA = { latitude: 27.627683, longitude: -80.487311 };
+      const southEastTestA = { latitude: 27.627271, longitude: -80.487319 };
+      const southWestTestA = { latitude: 27.627317, longitude: -80.487559 };
+  
+      const northWestTestB = { latitude: 28.0557922, longitude: -80.62516982 };
+      const northEastTestB = { latitude: 28.05551762, longitude: -80.6246602 };
+      const southEastTestB = { latitude: 28.05535901, longitude: -80.62485332 };
+      const southWestTestB = { latitude: 28.05557914, longitude: -80.62531466 };
+  
+    // Check if the user's location is within the geofence
+    
+    const isWithinGeofence =
+      ((lat >= southWest.latitude && lat <= northEast.latitude) &&
+      (lng >= northWest.longitude && lng <= southEast.longitude)) ||
+  
+      ((lat >= southWestTestA.latitude && lat <= northEastTestA.latitude) &&
+      (lng >= northWestTestA.longitude && lng <= southEastTestA.longitude))||
+  
+      ((lat >= southWestTestB.latitude && lat <= northEastTestB.latitude) &&
+      (lng >= northWestTestB.longitude && lng <= southEastTestB.longitude));
+  
+    if (isWithinGeofence) {
+      calculatePing().then(ping_calc => {
+        setPing(ping_calc);
+      });
+    
+      calculateDownloadSpeed().then(sum => {
+        setDownloadSpeed(sum);
+      });
+    
+      calculateUploadSpeed().then(sum2 => {
+        setUploadSpeed(sum2);
+      });
+    }
+  }
+  
   useEffect(() => {
-    calculatePing().then(ping_calc => {
-      setPing(ping_calc);
-    });
+    getLocation();
   }, []);
   
   useEffect(() => {
-    calculateDownloadSpeed().then(sum => {
-      setDownloadSpeed(sum);
-    });
-  }, []);
-
-  useEffect(() => {
-    calculateUploadSpeed().then(sum2 => {
-      setUploadSpeed(sum2);
-      getLocation();
-    });
-  }, []);
-
+    if (lat && lng) {
+      onFIT(lat, lng);
+    }
+  }, [lat, lng]);
+  
   useEffect(() => {
     if (downloadSpeed && locationLoaded && uploadSpeed && ping) {
       postData(lat, lng, downloadSpeed, uploadSpeed, ping);
     }
   }, [ping, uploadSpeed, downloadSpeed, locationLoaded]);
-
+  
+  
 
   const [selectedPoint, setselectedPoint] = useState(null);
 
@@ -155,7 +192,6 @@ export default function App() {
   right: 0,
   margin: 10
   };
-
 
 
   return (
