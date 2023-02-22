@@ -47,8 +47,6 @@ export default function App() {
   let user_down = downloadSpeed;
   let user_ping = ping;
 
-  var currentTime = new Date(Date.now());
-  var time = currentTime.toLocaleString();
 
   const [viewport, setViewport] = useState({
     latitude: 28.063570,
@@ -64,20 +62,30 @@ export default function App() {
 
   const [pointData, setPointData] = useState([]);
 
+  const [refreshTime, setRefreshTime] = useState();
+
   const getData = () => {
     axios.get("http://localhost:3000/data")
       .then(response => {
         setPointData(response.data);
+        const currentTime1 = new Date(Date.now());
+        setRefreshTime(currentTime1.toLocaleString()); 
+        console.log(refreshTime); 
       })
       .catch(error => {
         console.log("error with getData")
         console.log(error);
       });
   }
+  
+  
 
+  var time;
 
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping) => {
     if (downloadSpeed && locationLoaded) {
+      var currentTime = new Date(Date.now());
+      time = currentTime.toLocaleString();
       const newData = {
         time: time,
         upload: uploadSpeed,
@@ -160,6 +168,7 @@ export default function App() {
       });
     }
   }
+
   
   useEffect(() => {
     getLocation();
@@ -212,9 +221,10 @@ export default function App() {
       <p>Upload: {user_up}<br />
       Download: {user_down}<br />
       Ping: {user_ping}</p>
-      <p>Timestamp: {time} <br />
+      <p>Speed Test Time: {time} <br />
       Latitude: {status} {lat} <br />
-      longitude: {lng}</p>
+      longitude: {lng}<br />
+      Map Refreshed: {refreshTime}</p>
       </div>
       <ReactMapGL
       
