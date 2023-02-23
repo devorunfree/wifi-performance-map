@@ -5,6 +5,8 @@ import Checkbox from "./checkbox.js";
 import calculateDownloadSpeed from "./download.js";
 import calculateUploadSpeed from "./upload.js";
 import calculatePing from "./ping.js";
+import * as building from "./Building_name.json"
+
 
 import refreshIcon from "./icons/refresh.svg";
 
@@ -43,6 +45,9 @@ export default function App() {
   const [locationLoaded, setLocationLoaded] = useState(false);
 
 
+  const [currentBuilding, setcurrentBuilding] = useState();
+
+
   let user_up = uploadSpeed;
   let user_down = downloadSpeed;
   let user_ping = ping;
@@ -70,7 +75,6 @@ export default function App() {
         setPointData(response.data);
         const currentTime1 = new Date(Date.now());
         setRefreshTime(currentTime1.toLocaleString()); 
-        console.log(refreshTime); 
       })
       .catch(error => {
         console.log("error with getData")
@@ -81,11 +85,13 @@ export default function App() {
   
 
   var time;
-
+  const [speedTime, setSpeedTime] = useState();
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping) => {
     if (downloadSpeed && locationLoaded) {
-      var currentTime = new Date(Date.now());
+      const currentTime = new Date(Date.now());
+      setSpeedTime(currentTime.toLocaleString());
       time = currentTime.toLocaleString();
+      console.log(time);
       const newData = {
         time: time,
         upload: uploadSpeed,
@@ -124,6 +130,15 @@ export default function App() {
       });    
     }
   };
+
+  function set_building_name(lat, lng){
+    for (let i = 0; i < 47; i++) { 
+    if ((lat >=building.building_name[i].SW_Lat && lat <= building.building_name[i].NE_Lat) && 
+    (lng >=building.building_name[i].NW_Long && lng <= building.building_name[i].SE_Long)){
+      setcurrentBuilding(building.building_name[i].Location);
+    }
+  }
+  }
   
   function onFIT(lat, lng) {
   
@@ -131,16 +146,16 @@ export default function App() {
       const northEast = { latitude: 28.069635, longitude: -80.621458 };
       const southEast = { latitude: 28.057966, longitude: -80.621641 };
       const southWest = { latitude: 28.057947, longitude: -80.625564 };
-  
-      const northWestTestA = { latitude: 27.627688, longitude: -80.487553 };
-      const northEastTestA = { latitude: 27.627683, longitude: -80.487311 };
-      const southEastTestA = { latitude: 27.627271, longitude: -80.487319 };
-      const southWestTestA = { latitude: 27.627317, longitude: -80.487559 };
-  
-      const northWestTestB = { latitude: 28.0557922, longitude: -80.62516982 };
-      const northEastTestB = { latitude: 28.05551762, longitude: -80.6246602 };
-      const southEastTestB = { latitude: 28.05535901, longitude: -80.62485332 };
-      const southWestTestB = { latitude: 28.05557914, longitude: -80.62531466 };
+      
+      const northWestTestA = { latitude: 27.627685726024367, longitude: -80.48778145560247 };
+      const northEastTestA = { latitude: 27.62768264423744, longitude:  -80.48711360380926 };
+      const southEastTestA = { latitude: 27.627164902802857, longitude: -80.48710664701976 };
+      const southWestTestA = { latitude: 27.62718031180948, longitude: -80.48778841239198 };
+      
+      const northWestTestB = { latitude: 28.05684075086767, longitude: -80.62562845853505 };
+      const northEastTestB = { latitude: 28.056850256630913, longitude: -80.62374265747248 };
+      const southEastTestB = { latitude: 28.05480197711898, longitude: -80.6237623605586 };
+      const southWestTestB = { latitude: 28.054808932293692, longitude: -80.6256499162083 };
   
     // Check if the user's location is within the geofence
     
@@ -158,6 +173,8 @@ export default function App() {
       calculatePing().then(ping_calc => {
         setPing(ping_calc);
       });
+
+      set_building_name(lat, lng);
     
       calculateDownloadSpeed().then(sum => {
         setDownloadSpeed(sum);
@@ -221,9 +238,8 @@ export default function App() {
       <p>Upload: {user_up}<br />
       Download: {user_down}<br />
       Ping: {user_ping}</p>
-      <p>Speed Test Time: {time} <br />
-      Latitude: {status} {lat} <br />
-      longitude: {lng}<br />
+      <p>Speed Test Time: {speedTime} <br />
+      Location: {status} {currentBuilding} <br />
       Map Refreshed: {refreshTime}</p>
       </div>
       <ReactMapGL
