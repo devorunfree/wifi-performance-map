@@ -3,15 +3,20 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const route = require("./route.js");
+const dataRoute = require("./route.js");
+const testRoute = require("./route.js");
 const path = require("path");
 const axios = require('axios');
 const multer = require("multer");
 const upload = multer({ limit: '10MB' }); // set file size limit to 10 MB
 
+
+
+
 const test_image_path = path.join(__dirname, "pic3.jpg");
 
 let startTime = null;
+
 
 app.use(cors());
 app.use(express.json());
@@ -22,30 +27,21 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/data", route);
+app.use("/data", dataRoute);
+
+app.get("/test", testRoute);
 
 app.get('/ping', (req, res) => {
     res.send(Date.now().toString());
 });
 
-// app.get('/geolocation', async (req, res) => {
-//     try {
-//       const response = await axios.get('https://geolocation-db.com/json/');
-//       res.json(response.data);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Server error');
-//     }
-//   });
+  
 
 // This route will handle file uploads
 app.post("/upload", upload.single("file"), (req, res) => {
-    //console.log("Received file: ", req.file);
     if (!startTime) startTime = Date.now();
-    //console.log("start time", startTime);
     // the file is stored in the "file" property of the request body
     let file = req.file;
-    //console.log("end time", Date.now());
     if (!file) {
         console.error("File is not set in the request body");
         return res.status(400).send("File is not set in the request body");

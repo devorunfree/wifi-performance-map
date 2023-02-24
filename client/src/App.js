@@ -45,8 +45,6 @@ export default function App() {
   const [locationLoaded, setLocationLoaded] = useState(false);
 
 
-  const [currentBuilding, setcurrentBuilding] = useState();
-
 
   let user_up = uploadSpeed;
   let user_down = downloadSpeed;
@@ -86,19 +84,19 @@ export default function App() {
 
   var time;
   const [speedTime, setSpeedTime] = useState();
-  const postData = (lat, lng, downloadSpeed, uploadSpeed, ping) => {
+  const postData = (lat, lng, downloadSpeed, uploadSpeed, ping, currentBuilding) => {
     if (downloadSpeed && locationLoaded) {
       const currentTime = new Date(Date.now());
       setSpeedTime(currentTime.toLocaleString());
       time = currentTime.toLocaleString();
-      console.log(time);
       const newData = {
         time: time,
         upload: uploadSpeed,
         download: downloadSpeed,
         ping: ping,
         latitude: lat,
-        longitude: lng
+        longitude: lng,
+        building: currentBuilding
       };
       axios.post("http://localhost:3000/data", newData)
         .then(response => {
@@ -130,17 +128,42 @@ export default function App() {
       });    
     }
   };
+  const [currentBuilding, setcurrentBuilding] = useState();
+  var building1;
 
-  function set_building_name(lat, lng){
-    for (let i = 0; i < 47; i++) { 
-    if ((lat >=building.building_name[i].SW_Lat && lat <= building.building_name[i].NE_Lat) && 
-    (lng >=building.building_name[i].NW_Long && lng <= building.building_name[i].SE_Long)){
-      setcurrentBuilding(building.building_name[i].Location);
-    }
-  }
+  function set_building_name(lat, lng) {
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < 48; i++) { 
+        if ((lat >=building.building_name[i].SW_Lat && lat <= building.building_name[i].NE_Lat) && 
+            (lng >=building.building_name[i].NW_Long && lng <= building.building_name[i].SE_Long)) {
+          setcurrentBuilding(building.building_name[i].Location);
+          building1 = building.building_name[i].Location;
+          resolve(building1);
+          return; // exit the loop after setting the building name
+        }
+      }
+      // If no matching building name is found, reject the promise
+      reject('No matching building name found');
+    });
   }
   
-  function onFIT(lat, lng) {
+
+  async function requestTest(building1) {
+    try {
+      console.log(building1)
+      const response = await axios.get(`http://localhost:3000/test?currentBuilding=${building1}`);
+      const { result } = response.data;
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error('Error while sending test request:', error);
+      return false;
+    }
+  }
+  
+  
+  
+  async function onFIT(lat, lng) {
   
       const northWest = { latitude: 28.069694, longitude: -80.625449 };
       const northEast = { latitude: 28.069635, longitude: -80.621458 };
@@ -169,21 +192,35 @@ export default function App() {
       ((lat >= southWestTestB.latitude && lat <= northEastTestB.latitude) &&
       (lng >= northWestTestB.longitude && lng <= southEastTestB.longitude));
   
-    if (isWithinGeofence) {
-      calculatePing().then(ping_calc => {
-        setPing(ping_calc);
-      });
+      if (isWithinGeofence) {
+        try {
+          await set_building_name(lat, lng);
+          console.log(`Building name has been set: ${building1}`);
+          
+          const testResult = await requestTest(building1);
+          console.log('Speed test requested');
+          
+          if (testResult === true) {
+            const ping_calc = await calculatePing();
+            console.log(`Ping calculated: ${ping_calc}`);
+            setPing(ping_calc);
+            
+            const sum = await calculateDownloadSpeed();
+            console.log(`Download speed calculated: ${sum}`);
+            setDownloadSpeed(sum);
+            
+            const sum2 = await calculateUploadSpeed();
+            console.log(`Upload speed calculated: ${sum2}`);
+            setUploadSpeed(sum2);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        console.log('Outside geofence');
+      }      
 
-      set_building_name(lat, lng);
-    
-      calculateDownloadSpeed().then(sum => {
-        setDownloadSpeed(sum);
-      });
-    
-      calculateUploadSpeed().then(sum2 => {
-        setUploadSpeed(sum2);
-      });
-    }
+      
   }
 
   
@@ -199,9 +236,9 @@ export default function App() {
   
   useEffect(() => {
     if (downloadSpeed && locationLoaded && uploadSpeed && ping) {
-      postData(lat, lng, downloadSpeed, uploadSpeed, ping);
+      postData(lat, lng, downloadSpeed, uploadSpeed, ping, currentBuilding);
     }
-  }, [ping, uploadSpeed, downloadSpeed, locationLoaded]);
+  }, [ping, uploadSpeed, downloadSpeed, locationLoaded, currentBuilding]);
   
   
 

@@ -14,7 +14,6 @@
   "Midpoints_Long": -80.4874474477347
  },
 
-
  {
   "Location": "Test Location B",
   "NW_Lat": 28.05684075086767,
@@ -28,6 +27,21 @@
   "Midpoints_Lat": 28.0555696735345,
   "Midpoints_Long": -80.6249901118747
  },
+
+ {
+    "Location": "Evans Library",
+    "NW_Lat": 28.065691199334157,
+    "NW_Long": -80.62342466677454,
+    "NE_Lat": 28.066162192429204,
+    "NE_Long": -80.6227970299212,
+    "SE_Lat": 28.06583557432141,
+    "SE_Long": -80.62237324093476,
+    "SW_Lat": 28.06545451860758,
+    "SW_Long": -80.62290700048096,
+    "Midpoints_Lat": 28.065710133769773,
+    "Midpoints_Long": -80.62301697104076
+   },
+
  {
   "Location": "Student Design Center",
   "NW_Lat": 28.06084502170517,
@@ -42,7 +56,7 @@
   "Midpoints_Long": -80.6241382181626
  },
  {
-  "Location": "Machine_Shop",
+  "Location": "Machine Shop",
   "NW_Lat": 28.06084987030806,
   "NW_Long": -80.62374043172603,
   "NE_Lat": 28.0608484629341,
@@ -68,7 +82,7 @@
   "Midpoints_Long": -80.62435596481154
  },
  {
-  "Location": "Health_Sciences",
+  "Location": "Gordon Health Sciences",
   "NW_Lat": 28.062472094551012,
   "NW_Long": -80.6248219986203,
   "NE_Lat": 28.0624732779887,
@@ -81,7 +95,7 @@
   "Midpoints_Long": -80.62465771332256
  },
  {
-  "Location": "Olin_Physical_Sciences",
+  "Location": "Olin Physical Sciences",
   "NW_Lat": 28.06269754890042,
   "NW_Long": -80.62412759764332,
   "NE_Lat": 28.0626866022883,
@@ -94,7 +108,7 @@
   "Midpoints_Long": -80.6239099457644
  },
  {
-  "Location": "Olin_Life_Sciences",
+  "Location": "Olin Life Sciences",
   "NW_Lat": 28.06354142982959,
   "NW_Long": -80.62484934482124,
   "NE_Lat": 28.0635493909387,
@@ -107,7 +121,7 @@
   "Midpoints_Long": -80.6246694718954
  },
  {
-  "Location": "Olin_Engineering_Complex",
+  "Location": "Olin Engineering Complex",
   "NW_Lat": 28.0635663082938,
   "NW_Long": -80.62413887495751,
   "NE_Lat": 28.0635623277399,
@@ -120,7 +134,7 @@
   "Midpoints_Long": -80.62392178694355
  },
  {
-  "Location": "Clemente_Center",
+  "Location": "Clemente Center",
   "NW_Lat": 28.063710758450178,
   "NW_Long": -80.62290153865443,
   "NE_Lat": 28.0636882410653,
@@ -159,7 +173,7 @@
   "Midpoints_Long": -80.62303576008554
  },
  {
-  "Location": "Crawford_Building",
+  "Location": "Crawford Building",
   "NW_Lat": 28.064555102787494,
   "NW_Long": -80.62411168729638,
   "NE_Lat": 28.064546658835,
@@ -172,7 +186,7 @@
   "Midpoints_Long": -80.62392748200821
  },
  {
-  "Location": "Skurla_Hall",
+  "Location": "Skurla Hall",
   "NW_Lat": 28.064701464524056,
   "NW_Long": -80.62479268866457,
   "NE_Lat": 28.0647070938176,
@@ -185,7 +199,7 @@
   "Midpoints_Long": -80.62455106874114
  },
  {
-  "Location": "Ray_Work_Building",
+  "Location": "Ray Work Building",
   "NW_Lat": 28.065222172945735,
   "NW_Long": -80.6244657442259,
   "NE_Lat": 28.0649885581341,
@@ -198,7 +212,7 @@
   "Midpoints_Long": -80.6244657442259
  },
  {
-  "Location": "Link_Building",
+  "Location": "Link Building",
   "NW_Lat": 28.065413086385508,
   "NW_Long": -80.62317117511651,
   "NE_Lat": 28.0654130863855,
@@ -211,7 +225,7 @@
   "Midpoints_Long": -80.62298537497739
  },
  {
-  "Location": "Shepard_Building",
+  "Location": "Shepard Building",
   "NW_Lat": 28.06546515699688,
   "NW_Long": -80.62247422522806,
   "NE_Lat": 28.0654623423699,
@@ -224,7 +238,7 @@
   "Midpoints_Long": -80.6223841161477
  },
  {
-  "Location": "407_Academic_Quad ",
+  "Location": "407 Academic Quad ",
   "NW_Lat": 28.06534770942039,
   "NW_Long": -80.62339604910085,
   "NE_Lat": 28.0653505240503,
@@ -237,7 +251,7 @@
   "Midpoints_Long": -80.6235124732223
  },
  {
-  "Location": "406_Academic_Quad ",
+  "Location": "406 Academic Quad ",
   "NW_Lat": 28.065547547960144,
   "NW_Long": -80.62390480656325,
   "NE_Lat": 28.0655475479601,
@@ -250,7 +264,7 @@
   "Midpoints_Long": -80.6237907747182
  },
  {
-  "Location": "405_Academic_Quad",
+  "Location": "405 Academic Quad",
   "NW_Lat": 28.06555036258481,
   "NW_Long": -80.62416476727289,
   "NE_Lat": 28.0655510299326,
@@ -263,7 +277,7 @@
   "Midpoints_Long": -80.6240608324934
  },
  {
-  "Location": "403_Academic_Quad",
+  "Location": "403 Academic Quad",
   "NW_Lat": 28.066138851406276,
   "NW_Long": -80.62389767542778,
   "NE_Lat": 28.066135301214,
@@ -276,7 +290,7 @@
   "Midpoints_Long": -80.62376892939845
  },
  {
-  "Location": "402_Academic_Quad",
+  "Location": "402 Academic Quad",
   "NW_Lat": 28.06614240159841,
   "NW_Long": -80.62415315582959,
   "NE_Lat": 28.0661370763101,
@@ -289,7 +303,7 @@
   "Midpoints_Long": -80.62403547391216
  },
  {
-  "Location": "404_Academic_Quad",
+  "Location": "404 Academic Quad",
   "NW_Lat": 28.066132934419112,
   "NW_Long": -80.62361470238433,
   "NE_Lat": 28.0661300998406,
@@ -302,7 +316,7 @@
   "Midpoints_Long": -80.6234965092534
  },
  {
-  "Location": "Ruth_Funk_Center",
+  "Location": "Ruth Funk Center",
   "NW_Lat": 28.066200544836697,
   "NW_Long": -80.62320297807486,
   "NE_Lat": 28.0660632190086,
@@ -315,7 +329,7 @@
   "Midpoints_Long": -80.6232012864799
  },
  {
-  "Location": "John_Office_Bldg",
+  "Location": "John Office Bldg",
   "NW_Lat": 28.0660781457321,
   "NW_Long": -80.62444122555594,
   "NE_Lat": 28.0660721750407,
@@ -328,7 +342,7 @@
   "Midpoints_Long": -80.62430984501759
  },
  {
-  "Location": "Frueaff_Energy_Research ",
+  "Location": "Frueaff Energy Research ",
   "NW_Lat": 28.065471356614744,
   "NW_Long": -80.62198313449991,
   "NE_Lat": 28.0654685419879,
@@ -341,7 +355,7 @@
   "Midpoints_Long": -80.6218491670176
  },
  {
-  "Location": "Denius_Student_Center",
+  "Location": "Denius Student Center",
   "NW_Lat": 28.06668868750322,
   "NW_Long": -80.6239012140326,
   "NE_Lat": 28.0666886875032,
@@ -354,7 +368,7 @@
   "Midpoints_Long": -80.62367848736895
  },
  {
-  "Location": "Jerome_Keuper_Admin_Building",
+  "Location": "Jerome Keuper Admin Building",
   "NW_Lat": 28.066491655633715,
   "NW_Long": -80.6246737090432,
   "NE_Lat": 28.0664846898539,
@@ -380,7 +394,7 @@
   "Midpoints_Long": -80.62413875579475
  },
  {
-  "Location": "Evans_Hall",
+  "Location": "Evans Hall",
   "NW_Lat": 28.067796688107407,
   "NW_Long": -80.62327461412715,
   "NE_Lat": 28.0677986783059,
@@ -393,7 +407,7 @@
   "Midpoints_Long": -80.6231026353109
  },
  {
-  "Location": "Campbell_Hall",
+  "Location": "Campbell Hall",
   "NW_Lat": 28.067978791127207,
   "NW_Long": -80.62387343872781,
   "NE_Lat": 28.0679807813223,
@@ -406,7 +420,7 @@
   "Midpoints_Long": -80.62363435998
  },
  {
-  "Location": "Wood_Hall",
+  "Location": "Wood Hall",
   "NW_Lat": 28.067960879369057,
   "NW_Long": -80.62450609522553,
   "NE_Lat": 28.0679588891735,
@@ -419,7 +433,7 @@
   "Midpoints_Long": -80.62426927193755
  },
  {
-  "Location": "Roberts_Hall",
+  "Location": "Roberts Hall",
   "NW_Lat": 28.069551765399176,
   "NW_Long": -80.62463574204752,
   "NE_Lat": 28.0695458485999,
@@ -432,7 +446,7 @@
   "Midpoints_Long": -80.62451906595851
  },
  {
-  "Location": "Alumni_Center",
+  "Location": "Alumni Center",
   "NW_Lat": 28.07014867694362,
   "NW_Long": -80.62525520474995,
   "NE_Lat": 28.0701506670985,
@@ -445,7 +459,7 @@
   "Midpoints_Long": -80.6251864132234
  },
  {
-  "Location": "L3Harris_Commons",
+  "Location": "L3Harris Commons",
   "NW_Lat": 28.063599649888328,
   "NW_Long": -80.62097472339639,
   "NE_Lat": 28.0635913659104,
@@ -458,7 +472,7 @@
   "Midpoints_Long": -80.6208432951581
  },
  {
-  "Location": "Mail_Shipping",
+  "Location": "Mail Shipping",
   "NW_Lat": 28.060978806171565,
   "NW_Long": -80.62305369006033,
   "NE_Lat": 28.0609811730799,
@@ -471,7 +485,7 @@
   "Midpoints_Long": -80.622822349539
  },
  {
-  "Location": "Security ",
+  "Location": "Security",
   "NW_Lat": 28.061716095634445,
   "NW_Long": -80.62213771570285,
   "NE_Lat": 28.0617137287422,
@@ -497,7 +511,7 @@
   "Midpoints_Long": -80.62254876422325
  },
  {
-  "Location": "Autism ",
+  "Location": "Scott Center",
   "NW_Lat": 28.061157507614496,
   "NW_Long": -80.62222756969531,
   "NE_Lat": 28.0611527738054,
@@ -510,7 +524,7 @@
   "Midpoints_Long": -80.6219814770248
  },
  {
-  "Location": "Health_Center",
+  "Location": "Health Center",
   "NW_Lat": 28.06441777401416,
   "NW_Long": -80.62550042922544,
   "NE_Lat": 28.064415783753,
@@ -536,7 +550,7 @@
   "Midpoints_Long": -80.62543220156391
  },
  {
-  "Location": "Brownlie_Hall",
+  "Location": "Brownlie Hall",
   "NW_Lat": 28.06740217099165,
   "NW_Long": -80.62532708601164,
   "NE_Lat": 28.067396313542,
@@ -549,7 +563,7 @@
   "Midpoints_Long": -80.6252194535001
  },
  {
-  "Location": "Shaw_Hall",
+  "Location": "Shaw Hall",
   "NW_Lat": 28.067476265662933,
   "NW_Long": -80.62450158431375,
   "NE_Lat": 28.067481241174,
@@ -562,7 +576,7 @@
   "Midpoints_Long": -80.6242591223761
  },
  {
-  "Location": "Grissom_Hall",
+  "Location": "Grissom Hall",
   "NW_Lat": 28.06748522158178,
   "NW_Long": -80.62387005553677,
   "NE_Lat": 28.0674901970924,
@@ -575,7 +589,7 @@
   "Midpoints_Long": -80.62363041292394
  },
  {
-  "Location": "HV_Bldg C",
+  "Location": "HV Bldg C",
   "NW_Lat": 28.058510199610843,
   "NW_Long": -80.62242640214414,
   "NE_Lat": 28.0585062188696,
@@ -588,7 +602,7 @@
   "Midpoints_Long": -80.62234125853345
  },
  {
-  "Location": "HV_Bldg B",
+  "Location": "HV Bldg B",
   "NW_Lat": 28.059057306131997,
   "NW_Long": -80.62263541976193,
   "NE_Lat": 28.0590640008795,
@@ -601,7 +615,7 @@
   "Midpoints_Long": -80.62255007239595
  },
  {
-  "Location": "HV_Bldg A",
+  "Location": "HV Bldg A",
   "NW_Lat": 28.059611295085602,
   "NW_Long": -80.6228421500539,
   "NE_Lat": 28.0596096214072,
@@ -614,7 +628,7 @@
   "Midpoints_Long": -80.62275395777576
  },
  {
-  "Location": "All_Faiths_Center",
+  "Location": "All Faiths Center",
   "NW_Lat": 28.060382253960924,
   "NW_Long": -80.62401446447771,
   "NE_Lat": 28.0603780697951,
