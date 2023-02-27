@@ -1,0 +1,202 @@
+{
+   "Test Location A": {
+      "Midpoints_Lat": 27.6275097629572,
+      "Midpoints_Long": -80.4874474477347
+   },
+
+ "Test Location B": {
+      "Midpoints_Lat": 28.0555696735345,
+      "Midpoints_Long": -80.6249901118747
+   },
+
+ "Evans Library": {
+       
+      "Midpoints_Lat": 28.065710133769773,
+      "Midpoints_Long": -80.62301697104076
+   },
+
+ "Student Design Center": {
+      "Midpoints_Lat": 28.06074418365015,
+      "Midpoints_Long": -80.6241382181626
+   },
+ "Machine Shop": {
+      "Midpoints_Lat": 28.060737983969048,
+      "Midpoints_Long": -80.6235083809085
+   },
+ "HCSE": {
+       "Midpoints_Lat": 28.0616969399621,
+      "Midpoints_Long": -80.62435596481154
+   },
+ "Gordon Health Sciences": {
+       "Midpoints_Lat": 28.062306413006652,
+      "Midpoints_Long": -80.62465771332256
+   },
+ "Olin Physical Sciences": {
+       "Midpoints_Lat": 28.062404477457648,
+      "Midpoints_Long": -80.6239099457644
+   },
+ "Olin Life Sciences": {
+       "Midpoints_Lat": 28.06318218356385,
+      "Midpoints_Long": -80.6246694718954
+   },
+ "Olin Engineering Complex": {
+       "Midpoints_Lat": 28.06324139460645,
+      "Midpoints_Long": -80.62392178694355
+   },
+ "Clemente Center": {
+       "Midpoints_Lat": 28.0633511827954,
+      "Midpoints_Long": -80.62258735301145
+   },
+ "Pdh": {
+       "Midpoints_Lat": 28.062299212508947,
+      "Midpoints_Long": -80.62211898089265
+   },
+ "Gleason": {
+       "Midpoints_Lat": 28.0645758007761,
+      "Midpoints_Long": -80.62303576008554
+   },
+ "Crawford Building": {
+       "Midpoints_Lat": 28.06441929571965,
+      "Midpoints_Long": -80.62392748200821
+   },
+ "Skurla Hall": {
+       "Midpoints_Lat": 28.0644945875813,
+      "Midpoints_Long": -80.62455106874114
+   },
+ "Ray Work Building": {
+       "Midpoints_Lat": 28.065022333615048,
+      "Midpoints_Long": -80.6244657442259
+   },
+ "Link Building": {
+       "Midpoints_Lat": 28.06526391088245,
+      "Midpoints_Long": -80.62298537497739
+   },
+ "Shepard Building": {
+       "Midpoints_Lat": 28.0652941681429,
+      "Midpoints_Long": -80.6223841161477
+   },
+ "407 Academic Quad ": {
+       "Midpoints_Lat": 28.0654476286902,
+      "Midpoints_Long": -80.6235124732223
+   },
+ "406 Academic Quad ": {
+       "Midpoints_Lat": 28.06544973966265,
+      "Midpoints_Long": -80.6237907747182
+   },
+ "405 Academic Quad": {
+       "Midpoints_Lat": 28.06545247364745,
+      "Midpoints_Long": -80.6240608324934
+   },
+ "403 Academic Quad": {
+       "Midpoints_Lat": 28.06604595463,
+      "Midpoints_Long": -80.62376892939845
+   },
+ "402 Academic Quad": {
+       "Midpoints_Lat": 28.066051871623998,
+      "Midpoints_Long": -80.62403547391216
+   },
+ "404 Academic Quad": {
+       "Midpoints_Lat": 28.06604069129525,
+      "Midpoints_Long": -80.6234965092534
+   },
+ "Ruth Funk Center": {
+      "Midpoints_Lat": 28.06606272136255,
+      "Midpoints_Long": -80.6232012864799
+   },
+ "John Office Bldg": {
+       "Midpoints_Lat": 28.065772644499148,
+      "Midpoints_Long": -80.62430984501759
+   },
+ "Frueaff Energy Research ": {
+       "Midpoints_Lat": 28.06521592863465,
+      "Midpoints_Long": -80.6218491670176
+   },
+ "Denius Student Center": {
+       "Midpoints_Lat": 28.06647225074235,
+      "Midpoints_Long": -80.62367848736895
+   },
+ "Jerome Keuper Admin Building": {
+       "Midpoints_Lat": 28.066399607753652,
+      "Midpoints_Long": -80.62448199495294
+   },
+ "Pantherium": {
+       "Midpoints_Lat": 28.0668333826715,
+      "Midpoints_Long": -80.62413875579475
+   },
+ "Evans Hall": {
+       "Midpoints_Lat": 28.0676384670891,
+      "Midpoints_Long": -80.6231026353109
+   },
+ "Campbell Hall": {
+       "Midpoints_Lat": 28.0678723155793,
+      "Midpoints_Long": -80.62363435998
+   },
+ "Wood Hall": {
+       "Midpoints_Lat": 28.0678578866523,
+      "Midpoints_Long": -80.62426927193755
+   },
+ "Roberts Hall": {
+       "Midpoints_Lat": 28.06935828572135,
+      "Midpoints_Long": -80.62451906595851
+   },
+ "Alumni Center": {
+       "Midpoints_Lat": 28.0700073757533,
+      "Midpoints_Long": -80.6251864132234
+   },
+ "L3Harris Commons": {
+      "Midpoints_Lat": 28.06324580454005,
+      "Midpoints_Long": -80.6208432951581
+   },
+ "Mail Shipping": {
+       "Midpoints_Lat": 28.06084093357795,
+      "Midpoints_Long": -80.622822349539
+   },
+ "Security": {
+       "Midpoints_Lat": 28.061623195035047,
+      "Midpoints_Long": -80.62196203101706
+   },
+ "ASC": {
+       "Midpoints_Lat": 28.061617277641048,
+      "Midpoints_Long": -80.62254876422325
+   },
+ "Scott Center": {
+       "Midpoints_Lat": 28.06093916023015,
+      "Midpoints_Long": -80.6219814770248
+   },
+ "Health Center": {
+       "Midpoints_Lat": 28.06436951015985,
+      "Midpoints_Long": -80.6254000612605
+   },
+ "Caps": {
+       "Midpoints_Lat": 28.064138639495653,
+      "Midpoints_Long": -80.62543220156391
+   },
+ "Brownlie Hall": {
+       "Midpoints_Lat": 28.06722226331535,
+      "Midpoints_Long": -80.6252194535001
+   },
+ "Shaw Hall": {
+       "Midpoints_Lat": 28.06738173086635,
+      "Midpoints_Long": -80.6242591223761
+   },
+ "Grissom Hall": {
+       "Midpoints_Lat": 28.06738272596115,
+      "Midpoints_Long": -80.62363041292394
+   },
+ "HV Bldg C": {
+       "Midpoints_Lat": 28.058253441198502,
+      "Midpoints_Long": -80.62234125853345
+   },
+ "HV Bldg B": {
+     "Midpoints_Lat": 28.0588029051166,
+      "Midpoints_Long": -80.62255007239595
+   },
+ "HV Bldg A": {
+       "Midpoints_Lat": 28.0593451795765,
+      "Midpoints_Long": -80.62275395777576
+   },
+ "All Faiths Center": {
+       "Midpoints_Lat": 28.06022032650255,
+      "Midpoints_Long": -80.62392911711174
+   }
+}

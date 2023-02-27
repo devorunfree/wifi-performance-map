@@ -5,7 +5,7 @@ import Checkbox from "./checkbox.js";
 import calculateDownloadSpeed from "./download.js";
 import calculateUploadSpeed from "./upload.js";
 import calculatePing from "./ping.js";
-import * as building from "./Building_name.json"
+import * as building from "./Building_name.json";
 
 
 import refreshIcon from "./icons/refresh.svg";
@@ -45,11 +45,9 @@ export default function App() {
   const [locationLoaded, setLocationLoaded] = useState(false);
 
 
-
-  let user_up = uploadSpeed;
-  let user_down = downloadSpeed;
-  let user_ping = ping;
-
+  const [user_up, setUserUp] = useState();
+  const [user_down, setUserDown] = useState();
+  const [user_ping, setUserPing] = useState();
 
   const [viewport, setViewport] = useState({
     latitude: 28.063570,
@@ -67,11 +65,25 @@ export default function App() {
 
   const [refreshTime, setRefreshTime] = useState();
 
-  const getData = () => {
+  // make get data async and 
+
+  const getData = (building1) => {
     axios.get("http://localhost:3000/data")
       .then(response => {
         setPointData(response.data);
+        let buildingData = [];
+        buildingData = response.data.find(data => data.building === building1);
         const currentTime1 = new Date(Date.now());
+        //console.log(response.data);
+        console.log(`get request building ${building1}`)
+        console.log(buildingData);
+        if (buildingData) {
+          const { download, upload, ping, time } = buildingData;
+          setUserUp(upload);
+          setUserDown(download);
+          setUserPing(ping);
+          setSpeedTime(time);
+        }
         setRefreshTime(currentTime1.toLocaleString()); 
       })
       .catch(error => {
@@ -79,6 +91,7 @@ export default function App() {
         console.log(error);
       });
   }
+  
   
   
 
@@ -101,6 +114,8 @@ export default function App() {
       axios.post("http://localhost:3000/data", newData)
         .then(response => {
           console.log('Data sent successfully:', response);
+          // need to wait until aggregated data is set
+          setTimeout(() => getData(currentBuilding), 2000)
         })
         .catch(error => {
           console.log("error with postData")
@@ -121,7 +136,6 @@ export default function App() {
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
         setLocationLoaded(true);
-        setTimeout(getData, 1000);
   
       }, () => {
         setStatus('Unable to retrieve your location');
@@ -139,10 +153,10 @@ export default function App() {
           setcurrentBuilding(building.building_name[i].Location);
           building1 = building.building_name[i].Location;
           resolve(building1);
-          return; // exit the loop after setting the building name
+          return; // exit the loop
         }
       }
-      // If no matching building name is found, reject the promise
+      // If no matching building name is found, reject promise
       reject('No matching building name found');
     });
   }
@@ -150,10 +164,9 @@ export default function App() {
 
   async function requestTest(building1) {
     try {
-      console.log(building1)
       const response = await axios.get(`http://localhost:3000/test?currentBuilding=${building1}`);
       const { result } = response.data;
-      console.log(result);
+      console.log(`speed test:${result}`);
       return result;
     } catch (error) {
       console.error('Error while sending test request:', error);
@@ -212,18 +225,22 @@ export default function App() {
             const sum2 = await calculateUploadSpeed();
             console.log(`Upload speed calculated: ${sum2}`);
             setUploadSpeed(sum2);
+
           }
+          // false condition set user's current metrics to aggregated data for current building
+
+          else{
+            getData(building1);
+          }
+
         } catch (error) {
           console.error(error);
         }
       } else {
         console.log('Outside geofence');
-      }      
-
-      
+      }            
   }
 
-  
   useEffect(() => {
     getLocation();
   }, []);
@@ -312,9 +329,10 @@ export default function App() {
             checkedImage={pingClicked}
             onChange={(id) => setShowPing(!showPing)}
           />
-<button onClick={getData} style={{width: '40px', height: '40px',  padding: '5px', marginLeft: '10px', marginTop: '10px'}}>
+<button onClick={() => getData(currentBuilding)} style={{width: '40px', height: '40px',  padding: '5px', marginLeft: '10px', marginTop: '10px'}}>
   <img src={refreshIcon} alt="refresh" style={{width: '100%', height: '100%'}} />
 </button>
+
 
         </div>
 
