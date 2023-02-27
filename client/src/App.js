@@ -78,11 +78,13 @@ export default function App() {
         console.log(`get request building ${building1}`)
         console.log(buildingData);
         if (buildingData) {
-          const { download, upload, ping, time } = buildingData;
+          const { download, upload, ping, time, latitude, longitude } = buildingData;
           setUserUp(upload);
           setUserDown(download);
           setUserPing(ping);
           setSpeedTime(time);
+          setLat(latitude);
+          setLng(longitude);
         }
         setRefreshTime(currentTime1.toLocaleString()); 
       })
