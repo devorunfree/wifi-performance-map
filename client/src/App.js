@@ -59,6 +59,10 @@ export default function App() {
 
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
+
+  const [lat1, setLat1] = useState();
+  const [lng1, setLng1] = useState();
+
   const [status, setStatus] = useState(0);
 
   const [pointData, setPointData] = useState([]);
@@ -83,8 +87,8 @@ export default function App() {
           setUserDown(download);
           setUserPing(ping);
           setSpeedTime(time);
-          setLat(latitude);
-          setLng(longitude);
+          setLat1(latitude);
+          setLng1(longitude);
         }
         setRefreshTime(currentTime1.toLocaleString()); 
       })
@@ -420,8 +424,8 @@ export default function App() {
           trackUserLocation={true}
           showUserHeading={true}
         />
-      {lat && lng && (
-        <Marker latitude={lat} longitude={lng}
+      {lat1 && lng1 && (
+        <Marker latitude={lat1} longitude={lng1}
         offsetLeft={-34}
         offsetTop={-56}
         >
