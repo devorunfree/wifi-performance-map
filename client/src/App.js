@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
+// import Directions from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+
+// import 'mapbox-gl/dist/mapbox-gl.css' // Updating node module will keep css up to date.
+// import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css' // Updating node module will keep css up to date.
+
+
 import Checkbox from "./checkbox.js";
 import calculateDownloadSpeed from "./download.js";
 import calculateUploadSpeed from "./upload.js";
@@ -9,6 +15,7 @@ import * as building from "./Building_name.json";
 
 
 import refreshIcon from "./icons/refresh.svg";
+import dino from "./icons/dino.svg";
 
 import uploadClicked from "./icons/upload_clicked.svg";
 import uploadUnclicked from "./icons/upload_unclicked.svg";
@@ -180,6 +187,14 @@ export default function App() {
     }
   }
   
+  function scheduleRequestTest(building1) {
+    setTimeout(function() {
+      onFIT(lat,lng);
+    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+  }
+  
+    
+  
   
   
   async function onFIT(lat, lng) {
@@ -232,15 +247,18 @@ export default function App() {
             console.log(`Upload speed calculated: ${sum2}`);
             setUploadSpeed(sum2);
 
+            scheduleRequestTest();
+
           }
           // false condition set user's current metrics to aggregated data for current building
 
           else{
+            scheduleRequestTest();
             getData(building1);
           }
 
         } catch (error) {
-          console.error(error);
+          console.error(error); 
         }
       } else {
         console.log('Outside geofence');
@@ -276,9 +294,8 @@ export default function App() {
   position: "absolute",
   top: 0,
   right: 0,
-  margin: 10
+  margin: 10,
   };
-
 
   return (
     <div>
@@ -310,6 +327,15 @@ export default function App() {
         onViewportChange={viewport=> {
           setViewport(viewport)}}
       >
+
+<GeolocateControl
+  style={geolocateStyle}
+  positionOptions={{ enableHighAccuracy: true }}
+  trackUserLocation={true}
+  onViewportChange={(viewport) => setViewport({ ...viewport, zoom: 18 })}
+/>
+
+
         <div className="checkboxes">
           <Checkbox 
             id="upload" 
@@ -343,6 +369,37 @@ export default function App() {
         </div>
 
 
+  {pointData.map(datapoint => {
+    const timeDiffInMinutes = (Date.parse(refreshTime) - Date.parse(datapoint.time)) / (1000 * 60);
+    if (timeDiffInMinutes > 15) {
+      return (
+        <Marker 
+          key={datapoint.time}
+          latitude={datapoint.latitude}
+          longitude={datapoint.longitude}
+          offsetTop={-20}
+          offsetLeft={-20}
+        >
+          <button 
+            className="marker-btn" 
+            onClick={(e) => {
+              e.preventDefault();
+              setselectedPoint(datapoint);
+            }}
+          >
+            <img 
+              src={dino} 
+              alt="Dinosaur Icon"
+            />
+          </button>
+        </Marker>
+      );
+    }
+    return null;
+})}
+
+
+
 {pointData.map(datapoint => (
   showUpload ? 
     <Marker 
@@ -352,9 +409,11 @@ export default function App() {
       offsetLeft={-40}
 
     >
-      <button class = "marker-btn" onClick={(e) =>{
+      <button className = "marker-btn" onClick={(e) =>{
                       e.preventDefault();
                       setselectedPoint(datapoint);
+                      // directions.setDestination([datapoint.longitude, datapoint.latitude]);
+
                     }}>
                       <img src={datapoint.upload === user_up ?  uploadOkay : datapoint.upload < user_up ? uploadbad : uploadGood} alt = "upload Icon"/>
       </button>
@@ -371,7 +430,7 @@ export default function App() {
       offsetLeft={-20}
 
     >
-      <button class = "marker-btn" onClick={(e) =>{
+      <button className = "marker-btn" onClick={(e) =>{
                       e.preventDefault();
                       setselectedPoint(datapoint);
                     }}>
@@ -388,7 +447,7 @@ export default function App() {
       latitude ={datapoint.latitude}
       longitude ={datapoint.longitude}
     >
-      <button class = "marker-btn" onClick={(e) =>{
+      <button className = "marker-btn" onClick={(e) =>{
                       e.preventDefault();
                       setselectedPoint(datapoint);
                     }}>
@@ -407,7 +466,9 @@ export default function App() {
             }}
           >
             <div>
-              <h2>{selectedPoint.time}</h2>
+              <h2>{selectedPoint.building}</h2>
+              <h3>{selectedPoint.time}</h3>
+              <p>{"Time since update: "} {Math.round((Date.parse(refreshTime)-(Date.parse(selectedPoint.time)))/60000)}{" Minutes"}</p>
               <p>{"UPLOAD: "}{selectedPoint.upload}</p>
               <p>{"DOWNLOAD: "}{selectedPoint.download}</p>
               <p>{"PING: "}{selectedPoint.ping}</p>
@@ -417,13 +478,6 @@ export default function App() {
 
         ): null}
 
-
-        <GeolocateControl
-          style={geolocateStyle}
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-          showUserHeading={true}
-        />
       {lat1 && lng1 && (
         <Marker latitude={lat1} longitude={lng1}
         offsetLeft={-34}
