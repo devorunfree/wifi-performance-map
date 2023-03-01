@@ -103,17 +103,20 @@ export default function App() {
         console.log(error);
       });
   }
-  
-  
-  
 
-  var time;
+  function scheduleRequestTest() {
+    setTimeout(function() {
+      getLocation()
+    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+  }
+  
+  
   const [speedTime, setSpeedTime] = useState();
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping, currentBuilding) => {
     if (downloadSpeed && locationLoaded) {
-      const currentTime = new Date(Date.now());
+      var currentTime = new Date(Date.now());
       setSpeedTime(currentTime.toLocaleString());
-      time = currentTime.toLocaleString();
+      const time = currentTime.toLocaleString();
       const newData = {
         time: time,
         upload: uploadSpeed,
@@ -123,6 +126,7 @@ export default function App() {
         longitude: lng,
         building: currentBuilding
       };
+      console.log("newData: ", newData);
       axios.post("http://localhost:3000/data", newData)
         .then(response => {
           console.log('Data sent successfully:', response);
@@ -142,6 +146,13 @@ export default function App() {
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
     } else {
+      setLat();
+      setLng();
+      setDownloadSpeed();
+      setUploadSpeed();
+      setPing();
+      setcurrentBuilding();
+      setLocationLoaded(false);
       setStatus('Locating...');
       navigator.geolocation.getCurrentPosition(async (position) => {
         setStatus(null);
@@ -186,12 +197,7 @@ export default function App() {
     }
   }
   
-  function scheduleRequestTest(building1) {
-    setTimeout(function() {
-      onFIT(lat,lng);
-    }, 15 * 60 * 1000); // 15 minutes in milliseconds
-  }
-  
+
     
   
   
@@ -282,23 +288,21 @@ export default function App() {
   
   
 
+
   const [selectedPoint, setselectedPoint] = useState(null);
 
   const [showUpload, setShowUpload] = useState(true);
   const [showDownload, setShowDownload] = useState(true);
   const [showPing, setShowPing] = useState(true);
 
-
-  const geolocateStyle = {
-  position: "absolute",
-  top: 0,
-  right: 0,
-  margin: 10,
-  };
-
   const [showPopup, setShowPopup] = useState(false);
 
-
+  const geolocateStyle = {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    margin: 10,
+    };
 
 
   return (
