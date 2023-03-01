@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
-// import Directions from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
-// import 'mapbox-gl/dist/mapbox-gl.css' // Updating node module will keep css up to date.
-// import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css' // Updating node module will keep css up to date.
+
+
 
 
 import Checkbox from "./checkbox.js";
@@ -61,7 +60,7 @@ export default function App() {
     longitude: -80.623040,
     width: "100vw",
     height: "80vh",
-    zoom: 16
+    zoom: 16.45
   });
 
   const [lat, setLat] = useState();
@@ -297,28 +296,105 @@ export default function App() {
   margin: 10,
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+
+
+
+
   return (
     <div>
-      <div style={{
-  display: "block",
-  width: "80%",
-  height: "auto",
-  backgroundColor: "#f2f2f2",
-  padding: "20px",
-  fontSize: "20px",
-  fontFamily: "Arial, sans-serif",
-  textAlign: "center",
-  border: "1px solid black",
-  margin: "0 auto"}}>
+      <div
+        style={{
+          display: "block",
+          width: "100%",
+          height: "auto",
+          backgroundColor: "#f2f2f2",
+          fontSize: "20px",
+          fontFamily: "Arial, sans-serif",
+          textAlign: "center",
+          border: "1px solid black",
+          margin: "0 auto"
+        }}
+      >
+        <h3>Current metrics</h3>
+        <p style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr", // change the column widths
+          columnGap: "1px",
+          alignItems: "<self-position>",
+          justifyItems: "center",
+        }}>
+          <span>
+            Location: {status} {currentBuilding} <br />
+            Speed Test Time: {speedTime} <br />
+            Map Refreshed: {refreshTime}
+          </span>
+          <span>
+            Upload: {user_up} Mbps<br />
+            Download: {user_down} Mbps<br />
+            Ping: {user_ping} ms
+          </span>
 
-      <h3>Current metrics</h3>
-      <p>Upload: {user_up}<br />
-      Download: {user_down}<br />
-      Ping: {user_ping}</p>
-      <p>Speed Test Time: {speedTime} <br />
-      Location: {status} {currentBuilding} <br />
-      Map Refreshed: {refreshTime}</p>
+          <button
+            style={{
+              fontSize: "24px",
+              padding: "12px 20px",
+              borderRadius: "20px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none"
+            }}
+            onClick={() => setShowPopup(true)}
+          >
+            info
+          </button>
+        </p>
       </div>
+
+      {showPopup && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "#fff",
+            padding: "30px",
+            width: "80%",
+            zIndex: "9999",
+            border: "1px solid black"
+          }}
+        >
+          <h2 style={{textAlign: "center"}}>Information</h2>
+          <p> The current metric section above shows the current average speed test data for the building where you are located</p>
+          <p><img src={uploadClicked} alt="clicked upload icon" style={{width: '2%', height: '2%', marginRight: '1px'}} /> 
+          <img src={uploadUnclicked} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            The buttons on the left side of the screen will toggle the selected icons on the map</p>
+          <p><img src={refreshIcon} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            The refresh button on the left side of the screen will update the map with the most recent data</p>
+          <p><img src={uploadGood} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            Green icons indicate that the metrics in that location are better than your current metrics</p>
+          <p><img src={downloadOkay} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            Yellow icons indicate that the metrics in that location are the same as your current metrics</p>
+          <p><img src={pingBad} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            Red icons indicate that the metrics in that location are worse than your current metrics</p>
+          <p><img src={dino} alt="dinosaur" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+            A dinosaur on top of the icons on the map indicates that those metrics are older than 15 minutes</p>
+
+          <button           
+            style={{
+            fontSize: "24px",
+            padding: "12px 20px",
+            borderRadius: "20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            float: "right"
+          }}onClick={() => setShowPopup(false)}>Close</button>
+        </div>
+      )}
+
+
       <ReactMapGL
       
         {...viewport}
@@ -328,13 +404,15 @@ export default function App() {
           setViewport(viewport)}}
       >
 
-<GeolocateControl
-  style={geolocateStyle}
-  positionOptions={{ enableHighAccuracy: true }}
-  trackUserLocation={true}
-  onViewportChange={(viewport) => setViewport({ ...viewport, zoom: 18 })}
-/>
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+          onViewportChange={(viewport) => setViewport({ ...viewport, zoom: 18.2 })}
+        />
 
+
+        
 
         <div className="checkboxes">
           <Checkbox 
