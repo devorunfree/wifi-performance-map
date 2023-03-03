@@ -11,8 +11,6 @@ const multer = require("multer");
 const upload = multer({ limit: '10MB' }); // set file size limit to 10 MB
 
 
-
-
 const test_image_path = path.join(__dirname, "pic3.jpg");
 
 let startTime = null;
@@ -55,7 +53,13 @@ app.post("/upload", upload.single("file"), (req, res) => {
     res.send("Upload complete");
 });
 
-app.use("/test-file", express.static(test_image_path));
+const staticOptions = {
+    noCache: true
+  };
+  //avoid caching to improve accuracy of download test
+  app.use("/test-file", express.static(test_image_path, staticOptions));
+  
+  
 
 mongoose.connect("mongodb+srv://admin:wifimap@wifi-perform.dfmdh6b.mongodb.net/wifi-performance-map", { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) console.log(err);

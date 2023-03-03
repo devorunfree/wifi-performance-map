@@ -3,6 +3,7 @@ const router = express.Router();
 const models = require("./datamodel.js");
 const bodyParser = require("body-parser");
 
+
 router.use(express.json({ limit: "10mb" }))
 router.use(bodyParser.json({ limit: "10mb" }))
 console.log("route.js file accessed");
@@ -24,13 +25,15 @@ router.get('/test', async (req, res) => {
       const currentTime = Date.now();
       // Query database for building names matching the one from client request
       const buildingData = await models.data.find({ building: currentBuilding });
+      console.log(buildingData);
       if (buildingData.length < 3) {
         // If there are less than 3 points, return true to run speed test
         console.log('Less than 3 data points, running speed test');
         res.json({ result: true });
       } else {
         // If there are 3 points, check if the oldest point is older than 15 minutes
-        const oldestPointTime = Date.parse(buildingData[0].time); // convert the string to a Date object
+        console.log(`oldest point time test: ${buildingData[0].time}`)
+        const oldestPointTime = buildingData[0].time;
         const elapsedTime = currentTime - oldestPointTime;
         console.log(`Oldest point time: ${oldestPointTime}, Elapsed time: ${elapsedTime}`);
         if (elapsedTime <= 900000) {
@@ -100,6 +103,13 @@ async function aggregateData(building) {
     const mostRecentTime = buildingData.reduce((mostRecent, data) => {
       return mostRecent.time > data.time ? mostRecent : data;
     }).time;
+    console.log(`most recent time: ${mostRecentTime}`);
+    
+    const mostRecentTimeInMs = parseFloat(mostRecentTime);
+    const date = new Date(mostRecentTimeInMs).toLocaleString();
+    console.log(`date: ${date}`);
+
+    
     // Get the midpoints latitude and longitude for this building from the JSON file
     const buildingCoordinates = buildingInfo[building];
     if (buildingCoordinates) {
@@ -108,7 +118,7 @@ async function aggregateData(building) {
       // Add the aggregated data to the list
       const aggregatedData = [{
         building: building,
-        time: mostRecentTime,
+        time: date,
         upload: averageUpload,
         download: averageDownload,
         ping: averagePing,
@@ -126,13 +136,6 @@ async function aggregateData(building) {
     throw error;
   }
 };
-
-
-  
-
-
-
-
 
 router.route("/").get((req, res) => {
     console.log("inside get request to DB")

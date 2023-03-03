@@ -7,12 +7,8 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
-    "@mapbox/mapbox-gl-directions": "^4.1.1",
-    "@mapbox/mapbox-sdk": "^0.15.0",
     "axios": "^1.2.5",
     "dotenv": "^16.0.3",
-    "mapbox-gl": "^2.13.0",
-    "mapbox-gl-directions": "^3.0.3",
     "mongoose": "^6.9.0",
     "multer": "^1.4.5-lts.1",
     "path": "^0.12.7",

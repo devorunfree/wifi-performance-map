@@ -85,8 +85,6 @@ export default function App() {
         buildingData = response.data.find(data => data.building === building1);
         const currentTime1 = new Date(Date.now());
         //console.log(response.data);
-        console.log(`get request building ${building1}`)
-        console.log(buildingData);
         if (buildingData) {
           const { download, upload, ping, time, latitude, longitude } = buildingData;
           setUserUp(upload);
@@ -114,9 +112,9 @@ export default function App() {
   const [speedTime, setSpeedTime] = useState();
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping, currentBuilding) => {
     if (downloadSpeed && locationLoaded) {
-      var currentTime = new Date(Date.now());
-      setSpeedTime(currentTime.toLocaleString());
-      const time = currentTime.toLocaleString();
+      var currentTime = Date.now();
+      setSpeedTime(currentTime);
+      const time = currentTime;
       const newData = {
         time: time,
         upload: uploadSpeed,
@@ -549,8 +547,8 @@ export default function App() {
           >
             <div>
               <h2>{selectedPoint.building}</h2>
-              <h3>{selectedPoint.time}</h3>
-              <p>{"Time since update: "} {Math.round((Date.parse(refreshTime)-(Date.parse(selectedPoint.time)))/60000)}{" Minutes"}</p>
+              <h3>{new Date(selectedPoint.time).toLocaleString()}</h3>
+              <p>{"Time since update: "} {Math.round(((Date.parse(refreshTime))-((Date.parse(selectedPoint.time))))/60000)}{" Minutes"}</p>
               <p>{"UPLOAD: "}{selectedPoint.upload}</p>
               <p>{"DOWNLOAD: "}{selectedPoint.download}</p>
               <p>{"PING: "}{selectedPoint.ping}</p>
