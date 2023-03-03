@@ -106,8 +106,9 @@ async function aggregateData(building) {
     console.log(`most recent time: ${mostRecentTime}`);
     
     const mostRecentTimeInMs = parseFloat(mostRecentTime);
-    const date = new Date(mostRecentTimeInMs).toLocaleString();
-    console.log(`date: ${date}`);
+    
+    const options = { timeZone: 'America/New_York' };
+    const date = new Date(mostRecentTimeInMs).toLocaleString('en-US', options);
 
     
     // Get the midpoints latitude and longitude for this building from the JSON file
