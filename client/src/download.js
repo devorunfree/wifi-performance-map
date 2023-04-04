@@ -2,13 +2,16 @@ async function calculateDownloadSpeed() {
 
   const speed_count = 10;
   const test_url = "http://localhost:3000/test-file";
+  const dynamic_url = test_url + "?id=" + Math.floor(Math.random() * 1000);
+  console.log(dynamic_url);
+
   const test_result = [];
 
   const download_speed = () => {
     return new Promise((resolve, reject) => {
       let startTime = Date.now();
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', test_url, true);
+      xhr.open('GET', dynamic_url, true);
       xhr.responseType = "blob";
       xhr.onload = function() {
         let endTime = Date.now();

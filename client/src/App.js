@@ -50,6 +50,7 @@ export default function App() {
   const [ping, setPing] = useState();
   const [locationLoaded, setLocationLoaded] = useState(false);
 
+  const [speedTime, setSpeedTime] = useState();
 
   const [user_up, setUserUp] = useState();
   const [user_down, setUserDown] = useState();
@@ -59,7 +60,7 @@ export default function App() {
     latitude: 28.063570,
     longitude: -80.623040,
     width: "100vw",
-    height: "80vh",
+    height: "90vh",
     zoom: 16.45
   });
 
@@ -74,8 +75,35 @@ export default function App() {
   const [pointData, setPointData] = useState([]);
 
   const [refreshTime, setRefreshTime] = useState();
+  const [refreshTimems, setRefreshTimems] = useState();
 
-  // make get data async and 
+
+  function formatTimestamp(timestamp) {
+    const date = new Date(Number(timestamp));
+    const currentDate = new Date();
+    const isToday = date.getDate() === currentDate.getDate() &&
+                    date.getMonth() === currentDate.getMonth() &&
+                    date.getFullYear() === currentDate.getFullYear();
+    
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+    
+    if (isNaN(date.getTime())) {
+      return 'Invalid timestamp';
+    } else if (isToday) {
+      return `${hours}:${minutes}:${seconds} ${ampm}`;
+    } else {
+      return `${month}/${day}/${year}, ${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+  }
+  
+  
+  
 
   const getData = (building1) => {
     axios.get("http://localhost:3000/data")
@@ -90,11 +118,12 @@ export default function App() {
           setUserUp(upload);
           setUserDown(download);
           setUserPing(ping);
-          setSpeedTime(time);
+          setSpeedTime(formatTimestamp(time));
           setLat1(latitude);
           setLng1(longitude);
         }
-        setRefreshTime(currentTime1.toLocaleString()); 
+        setRefreshTime(formatTimestamp(currentTime1)); 
+        setRefreshTimems(Date.now());
       })
       .catch(error => {
         console.log("error with getData")
@@ -109,11 +138,10 @@ export default function App() {
   }
   
   
-  const [speedTime, setSpeedTime] = useState();
   const postData = (lat, lng, downloadSpeed, uploadSpeed, ping, currentBuilding) => {
     if (downloadSpeed && locationLoaded) {
       var currentTime = Date.now();
-      setSpeedTime(currentTime);
+      setSpeedTime(formatTimestamp(currentTime));
       const time = currentTime;
       const newData = {
         time: time,
@@ -202,32 +230,40 @@ export default function App() {
   
   async function onFIT(lat, lng) {
   
-      const northWest = { latitude: 28.069694, longitude: -80.625449 };
-      const northEast = { latitude: 28.069635, longitude: -80.621458 };
-      const southEast = { latitude: 28.057966, longitude: -80.621641 };
-      const southWest = { latitude: 28.057947, longitude: -80.625564 };
-      
-      const northWestTestA = { latitude: 27.627685726024367, longitude: -80.48778145560247 };
-      const northEastTestA = { latitude: 27.62768264423744, longitude:  -80.48711360380926 };
-      const southEastTestA = { latitude: 27.627164902802857, longitude: -80.48710664701976 };
-      const southWestTestA = { latitude: 27.62718031180948, longitude: -80.48778841239198 };
-      
-      const northWestTestB = { latitude: 28.05684075086767, longitude: -80.62562845853505 };
-      const northEastTestB = { latitude: 28.056850256630913, longitude: -80.62374265747248 };
-      const southEastTestB = { latitude: 28.05480197711898, longitude: -80.6237623605586 };
-      const southWestTestB = { latitude: 28.054808932293692, longitude: -80.6256499162083 };
-  
-    // Check if the user's location is within the geofence
+    const northWest = { latitude: 28.069694, longitude: -80.625449 };
+    const northEast = { latitude: 28.069635, longitude: -80.621458 };
+    const southEast = { latitude: 28.057966, longitude: -80.621641 };
+    const southWest = { latitude: 28.057947, longitude: -80.625564 };
+
+    const northWestbab = { latitude: 28.063705301357434, longitude: -80.62112072428444 };
+    const northEastbab = { latitude: 28.063713098620028, longitude: -80.62039615788663 };
+    const southEastbab = { latitude: 28.06276962573779, longitude: -80.620515446257 };
+    const southWestbab = { latitude: 28.062757929741014, longitude: -80.6211339785478 };
     
-    const isWithinGeofence =
-      ((lat >= southWest.latitude && lat <= northEast.latitude) &&
-      (lng >= northWest.longitude && lng <= southEast.longitude)) ||
+    const northWestTestA = { latitude: 27.627685726024367, longitude: -80.48778145560247 };
+    const northEastTestA = { latitude: 27.62768264423744, longitude:  -80.48711360380926 };
+    const southEastTestA = { latitude: 27.627164902802857, longitude: -80.48710664701976 };
+    const southWestTestA = { latitude: 27.62718031180948, longitude: -80.48778841239198 };
+    
+    const northWestTestB = { latitude: 28.05684075086767, longitude: -80.62562845853505 };
+    const northEastTestB = { latitude: 28.056850256630913, longitude: -80.62374265747248 };
+    const southEastTestB = { latitude: 28.05480197711898, longitude: -80.6237623605586 };
+    const southWestTestB = { latitude: 28.054808932293692, longitude: -80.6256499162083 };
+
+  // Check if the user's location is within the geofence
   
-      ((lat >= southWestTestA.latitude && lat <= northEastTestA.latitude) &&
-      (lng >= northWestTestA.longitude && lng <= southEastTestA.longitude))||
-  
-      ((lat >= southWestTestB.latitude && lat <= northEastTestB.latitude) &&
-      (lng >= northWestTestB.longitude && lng <= southEastTestB.longitude));
+  const isWithinGeofence =
+    ((lat >= southWest.latitude && lat <= northEast.latitude) &&
+    (lng >= northWest.longitude && lng <= southEast.longitude)) ||
+
+    ((lat >= southWestbab.latitude && lat <= northEastbab.latitude) &&
+    (lng >= northWestbab.longitude && lng <= southEastbab.longitude)) ||
+
+    ((lat >= southWestTestA.latitude && lat <= northEastTestA.latitude) &&
+    (lng >= northWestTestA.longitude && lng <= southEastTestA.longitude))||
+
+    ((lat >= southWestTestB.latitude && lat <= northEastTestB.latitude) &&
+    (lng >= northWestTestB.longitude && lng <= southEastTestB.longitude));
   
       if (isWithinGeofence) {
         try {
@@ -311,7 +347,7 @@ export default function App() {
           width: "100%",
           height: "auto",
           backgroundColor: "#f2f2f2",
-          fontSize: "20px",
+          fontSize: "120%",
           fontFamily: "Arial, sans-serif",
           textAlign: "center",
           border: "1px solid black",
@@ -339,8 +375,8 @@ export default function App() {
 
           <button
             style={{
-              fontSize: "24px",
-              padding: "12px 20px",
+              fontSize: "120%",
+              padding: "1% 1%",
               borderRadius: "20px",
               backgroundColor: "#007bff",
               color: "#fff",
@@ -368,24 +404,24 @@ export default function App() {
           }}
         >
           <h2 style={{textAlign: "center"}}>Information</h2>
-          <p> The current metric section above shows the current average speed test data for the building where you are located</p>
-          <p><img src={uploadClicked} alt="clicked upload icon" style={{width: '2%', height: '2%', marginRight: '1px'}} /> 
-          <img src={uploadUnclicked} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p> The <strong>current metrics</strong> section above shows the current average speed test data for the building where you are located</p>
+          <p><img src={uploadClicked} alt="clicked upload icon" style={{width: '3%', height: '3%', marginRight: '1px'}} /> 
+          <img src={uploadUnclicked} alt="refresh" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             The buttons on the left side of the screen will toggle the selected icons on the map</p>
-          <p><img src={refreshIcon} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p><img src={refreshIcon} alt="refresh" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             The refresh button on the left side of the screen will update the map with the most recent data</p>
-          <p><img src={uploadGood} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p><img src={uploadGood} alt="refresh" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             Green icons indicate that the metrics in that location are better than your current metrics</p>
-          <p><img src={downloadOkay} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p><img src={downloadOkay} alt="refresh" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             Yellow icons indicate that the metrics in that location are the same as your current metrics</p>
-          <p><img src={pingBad} alt="refresh" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p><img src={pingBad} alt="refresh" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             Red icons indicate that the metrics in that location are worse than your current metrics</p>
-          <p><img src={dino} alt="dinosaur" style={{width: '2%', height: '2%', marginRight: '5px'}} />
+          <p><img src={dino} alt="dinosaur" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             A dinosaur on top of the icons on the map indicates that those metrics are older than 15 minutes</p>
 
           <button           
             style={{
-            fontSize: "24px",
+            fontSize: "120%",
             padding: "12px 20px",
             borderRadius: "20px",
             backgroundColor: "#007bff",
@@ -547,8 +583,8 @@ export default function App() {
           >
             <div>
               <h2>{selectedPoint.building}</h2>
-              <h3>{new Date(selectedPoint.time).toLocaleString()}</h3>
-              <p>{"Time since update: "} {Math.round(((Date.parse(refreshTime))-((Date.parse(selectedPoint.time))))/60000)}{" Minutes"}</p>
+              <h3>{formatTimestamp(selectedPoint.time)}</h3>
+              <p>{"Time since update: "} {Math.round(((refreshTimems)-(selectedPoint.time))/60000)}{" Minutes"}</p>
               <p>{"UPLOAD: "}{selectedPoint.upload}</p>
               <p>{"DOWNLOAD: "}{selectedPoint.download}</p>
               <p>{"PING: "}{selectedPoint.ping}</p>
@@ -574,5 +610,7 @@ export default function App() {
       
       </ReactMapGL>
     </div>
+    
   );
+  
 }

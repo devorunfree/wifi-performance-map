@@ -11,7 +11,7 @@ const multer = require("multer");
 const upload = multer({ limit: '10MB' }); // set file size limit to 10 MB
 
 
-const test_image_path = path.join(__dirname, "pic3.jpg");
+const test_image_path = path.join(__dirname, "myfile");
 
 let startTime = null;
 

@@ -119,7 +119,7 @@ async function aggregateData(building) {
       // Add the aggregated data to the list
       const aggregatedData = [{
         building: building,
-        time: date,
+        time: mostRecentTimeInMs,
         upload: averageUpload,
         download: averageDownload,
         ping: averagePing,
