@@ -1,6 +1,6 @@
 async function calculateDownloadSpeed() {
 
-  const speed_count = 10;
+  const speed_count = 5;
   const test_url = "http://localhost:3000/test-file";
   const dynamic_url = test_url + "?id=" + Math.floor(Math.random() * 1000);
   console.log(dynamic_url);

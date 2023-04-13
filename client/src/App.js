@@ -38,6 +38,8 @@ import pingOkay from "./icons/ping_okay.svg";
 import pingGood from "./icons/ping_good.svg";
 
 import userIcon from "./icons/user.svg";
+import geolocate from "./icons/geolocate.svg";
+
 
 
 
@@ -71,6 +73,7 @@ export default function App() {
   const [lng1, setLng1] = useState();
 
   const [status, setStatus] = useState(0);
+  const [status1, setStatus1] = useState(null);
 
   const [pointData, setPointData] = useState([]);
 
@@ -157,7 +160,9 @@ export default function App() {
         .then(response => {
           console.log('Data sent successfully:', response);
           // need to wait until aggregated data is set
-          setTimeout(() => getData(currentBuilding), 2000)
+          setTimeout(() => getData(currentBuilding), 2000);
+          setStatus1(null);
+
         })
         .catch(error => {
           console.log("error with postData")
@@ -275,14 +280,18 @@ export default function App() {
           
           if (testResult === true) {
             const ping_calc = await calculatePing();
+            setStatus1("calculating ping");
             console.log(`Ping calculated: ${ping_calc}`);
             setPing(ping_calc);
             
             const sum = await calculateDownloadSpeed();
+            setStatus1("calculating download");
             console.log(`Download speed calculated: ${sum}`);
             setDownloadSpeed(sum);
             
             const sum2 = await calculateUploadSpeed();
+            setStatus1("calculating upload");
+
             console.log(`Upload speed calculated: ${sum2}`);
             setUploadSpeed(sum2);
 
@@ -364,7 +373,7 @@ export default function App() {
         }}>
           <span>
             Location: {status} {currentBuilding} <br />
-            Speed Test Time: {speedTime} <br />
+            Speed Test Time: {status1} {speedTime} <br />
             Map Refreshed: {refreshTime}
           </span>
           <span>
@@ -374,18 +383,22 @@ export default function App() {
           </span>
 
           <button
-            style={{
-              fontSize: "120%",
-              padding: "1% 1%",
-              borderRadius: "20px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none"
-            }}
-            onClick={() => setShowPopup(true)}
-          >
-            info
-          </button>
+  style={{
+    fontSize: "110%",
+    padding: "1% 1%",
+    borderRadius: "20px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    width: "70%",   // set width to 20% of the parent container's width
+    height: "50%"   // set height to 10% of the parent container's height
+  }}
+  onClick={() => setShowPopup(true)}
+>
+  info
+</button>
+
+
         </p>
       </div>
 
@@ -418,7 +431,8 @@ export default function App() {
             Red icons indicate that the metrics in that location are worse than your current metrics</p>
           <p><img src={dino} alt="dinosaur" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             A dinosaur on top of the icons on the map indicates that those metrics are older than 15 minutes</p>
-
+          <p><img src={geolocate} alt="geolocation" style={{width: '3%', height: '3%', marginRight: '5px'}} />
+            This icon located in the upper right side of the screen with toggle between campus view and personal view</p>
           <button           
             style={{
             fontSize: "120%",
@@ -486,7 +500,8 @@ export default function App() {
 
 
   {pointData.map(datapoint => {
-    const timeDiffInMinutes = (Date.parse(refreshTime) - Date.parse(datapoint.time)) / (1000 * 60);
+    
+    const timeDiffInMinutes = (Math.round(((refreshTimems)-(datapoint.time))/60000));
     if (timeDiffInMinutes > 15) {
       return (
         <Marker 
