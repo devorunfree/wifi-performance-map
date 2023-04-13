@@ -432,7 +432,7 @@ export default function App() {
           <p><img src={dino} alt="dinosaur" style={{width: '3%', height: '3%', marginRight: '5px'}} />
             A dinosaur on top of the icons on the map indicates that those metrics are older than 15 minutes</p>
           <p><img src={geolocate} alt="geolocation" style={{width: '3%', height: '3%', marginRight: '5px'}} />
-            This icon located in the upper right side of the screen with toggle between campus view and personal view</p>
+            This icon located in the upper right side of the screen will toggle between campus view and personal view</p>
           <button           
             style={{
             fontSize: "120%",
