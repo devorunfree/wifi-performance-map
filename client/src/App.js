@@ -201,7 +201,7 @@ export default function App() {
 
   function set_building_name(lat, lng) {
     return new Promise((resolve, reject) => {
-      for (let i = 0; i < 48; i++) { 
+      for (let i = 0; i < 49; i++) { 
         if ((lat >=building.building_name[i].SW_Lat && lat <= building.building_name[i].NE_Lat) && 
             (lng >=building.building_name[i].NW_Long && lng <= building.building_name[i].SE_Long)) {
           setcurrentBuilding(building.building_name[i].Location);
