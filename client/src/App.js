@@ -295,6 +295,8 @@ export default function App() {
         }
       } else {
         console.log('Outside geofence');
+        setStatus('Invalid Location');
+
       }            
   }
 
