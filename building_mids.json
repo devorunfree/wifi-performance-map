@@ -1,12 +1,4 @@
 {
-    "Test Location A": {
-        "Midpoints_Lat": 27.6275097629572,
-        "Midpoints_Long": -80.4874474477347
-    },
-    "Test Location B": {
-        "Midpoints_Lat": 28.0555696735345,
-        "Midpoints_Long": -80.6249901118747
-    },
     "Alumni Center": {
         "Midpoints_Lat": 28.0700006270256,
         "Midpoints_Long": -80.6251777465837

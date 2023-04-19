@@ -201,7 +201,7 @@ export default function App() {
 
   function set_building_name(lat, lng) {
     return new Promise((resolve, reject) => {
-      for (let i = 0; i < 49; i++) { 
+      for (let i = 0; i < 48; i++) { 
         if ((lat >=building.building_name[i].SW_Lat && lat <= building.building_name[i].NE_Lat) && 
             (lng >=building.building_name[i].NW_Long && lng <= building.building_name[i].SE_Long)) {
           setcurrentBuilding(building.building_name[i].Location);
@@ -245,15 +245,6 @@ export default function App() {
     const southEastbab = { latitude: 28.06276962573779, longitude: -80.620515446257 };
     const southWestbab = { latitude: 28.062757929741014, longitude: -80.6211339785478 };
     
-    const northWestTestA = { latitude: 27.627685726024367, longitude: -80.48778145560247 };
-    const northEastTestA = { latitude: 27.62768264423744, longitude:  -80.48711360380926 };
-    const southEastTestA = { latitude: 27.627164902802857, longitude: -80.48710664701976 };
-    const southWestTestA = { latitude: 27.62718031180948, longitude: -80.48778841239198 };
-    
-    const northWestTestB = { latitude: 28.05684075086767, longitude: -80.62562845853505 };
-    const northEastTestB = { latitude: 28.056850256630913, longitude: -80.62374265747248 };
-    const southEastTestB = { latitude: 28.05480197711898, longitude: -80.6237623605586 };
-    const southWestTestB = { latitude: 28.054808932293692, longitude: -80.6256499162083 };
 
   // Check if the user's location is within the geofence
   
@@ -262,13 +253,7 @@ export default function App() {
     (lng >= northWest.longitude && lng <= southEast.longitude)) ||
 
     ((lat >= southWestbab.latitude && lat <= northEastbab.latitude) &&
-    (lng >= northWestbab.longitude && lng <= southEastbab.longitude)) ||
-
-    ((lat >= southWestTestA.latitude && lat <= northEastTestA.latitude) &&
-    (lng >= northWestTestA.longitude && lng <= southEastTestA.longitude))||
-
-    ((lat >= southWestTestB.latitude && lat <= northEastTestB.latitude) &&
-    (lng >= northWestTestB.longitude && lng <= southEastTestB.longitude));
+    (lng >= northWestbab.longitude && lng <= southEastbab.longitude));
   
       if (isWithinGeofence) {
         try {
